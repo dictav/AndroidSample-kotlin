@@ -6,26 +6,50 @@ import android.app.Activity
 import android.view.Menu
 import android.view.View
 import android.widget.Button
+import android.util.Log
 import org.jetbrains.kotlin.gradle.androidsample.R
+import org.msgpack.MessagePack;
+import org.msgpack.annotation.Message;
 
 /**
  * Created by dictav on 4/21/14.
  */
 
 open class MainActivity: Activity() {
+    Message open class Hoge(){
+        var name : String = ""
+        var age : Int = 0
+    }
 
     protected override fun onCreate(savedInstanceState: Bundle?): Unit {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var next: Button = findViewById(R.id.Button01) as Button
-        next.setOnClickListener(object: View.OnClickListener {
+        next setOnClickListener (object: View.OnClickListener {
             public override fun onClick(view: View): Unit {
+
+                /* MessagePack
+                 * MessagePackの元になるクラスは空のコンストラクタを持っていなければならない。
+                 */
+                val src = Hoge()
+                src.name = "shintaro"
+                src.age = 33
+                val msgpack = MessagePack()
+
+                // byte列に書き出し
+                val bytes = msgpack.write(src)
+                // byte列からクラスを生成
+                val dst = msgpack.read(bytes, javaClass<Hoge>())
+                Log.i("Hoge", "name:" + dst?.name + ", age:" + dst?.age)
+
                 /* ??? why don't work?
                  * val intent = Intent(view.getContext(), javaClass<MainActivity2>())
                  */
                 val intent = Intent()
-                intent.setClassName("org.jetbrains.kotlin.gradle.androidsample","org.jetbrains.kotlin.gradle.androidsample.MainActivity2");
-                startActivityForResult(intent,0)
+                intent.setClassName("org.jetbrains.kotlin.gradle.androidsample", "org.jetbrains.kotlin.gradle.androidsample.MainActivity2");
+                startActivityForResult(intent, 0)
+
+
             }
         })
     }
