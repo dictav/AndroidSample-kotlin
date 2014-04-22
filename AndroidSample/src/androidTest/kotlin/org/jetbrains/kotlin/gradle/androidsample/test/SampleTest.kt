@@ -9,6 +9,7 @@ import org.jetbrains.kotlin.gradle.androidsample.R
 import kotlin.test.*
 import android.widget.Button
 
+import org.msgpack.MessagePack
 /**
  * Created by dictav on 4/22/14.
  */
@@ -24,5 +25,26 @@ class SampleTest() : ActivityInstrumentationTestCase2<MainActivity?>("org.jetbra
     public fun testHelloWorld() {
         val textHello = myActivity?.findViewById(R.id.Button01) as Button
         assertEquals(textHello.getText(), "Next")
+    }
+
+    /* MessagePack の使い方 */
+    public fun testMessagePack() {
+        val src = MainActivity.Hoge()
+        src.name = "shintaro"
+        src.age = 33
+        val msgpack = MessagePack()
+
+        // byte列に書き出し
+        val bytes = msgpack.write(src)
+        // byte列からクラスを生成
+        val dst = msgpack.read(bytes, javaClass<MainActivity.Hoge>())
+
+        assertEquals(src.name,dst?.name)
+        assertEquals(src.age,dst?.age)
+    }
+
+    /* Redis の使い方 */
+    public fun testRedis() {
+
     }
 }

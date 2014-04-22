@@ -28,20 +28,6 @@ open class MainActivity: Activity() {
         next setOnClickListener (object: View.OnClickListener {
             public override fun onClick(view: View): Unit {
 
-                /* MessagePack
-                 * MessagePackの元になるクラスは空のコンストラクタを持っていなければならない。
-                 */
-                val src = Hoge()
-                src.name = "shintaro"
-                src.age = 33
-                val msgpack = MessagePack()
-
-                // byte列に書き出し
-                val bytes = msgpack.write(src)
-                // byte列からクラスを生成
-                val dst = msgpack.read(bytes, javaClass<Hoge>())
-                Log.i("Hoge", "name:" + dst?.name + ", age:" + dst?.age)
-
                 /* ??? why don't work?
                  * val intent = Intent(view.getContext(), javaClass<MainActivity2>())
                  */
