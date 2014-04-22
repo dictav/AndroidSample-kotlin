@@ -10,6 +10,8 @@ import kotlin.test.*
 import android.widget.Button
 
 import org.msgpack.MessagePack
+import redis.clients.jedis.Jedis
+
 /**
  * Created by dictav on 4/22/14.
  */
@@ -45,6 +47,8 @@ class SampleTest() : ActivityInstrumentationTestCase2<MainActivity?>("org.jetbra
 
     /* Redis の使い方 */
     public fun testRedis() {
-
+        val jedis = Jedis("10.0.2.2")
+        jedis.set("hoge", "10")
+        assertEquals(jedis.get("hoge"), "10")
     }
 }
