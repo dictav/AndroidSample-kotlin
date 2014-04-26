@@ -32,6 +32,7 @@ open class FBAuthFragment : Fragment() {
     private fun onSessionStateChange(session: Session, state: SessionState , exception: Exception?) {
         if (state.isOpened()) {
             Log.i(TAG, "Logged in...");
+            Log.i(TAG, session.getAccessToken())
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
         }
