@@ -10,6 +10,7 @@ import com.facebook.SessionState
 import android.util.Log
 import com.facebook.UiLifecycleHelper
 import android.content.Intent
+import com.facebook.widget.LoginButton
 
 /**
  * Created by sambaiz on 2014/04/27.
@@ -21,10 +22,14 @@ open class FBAuthFragment : Fragment() {
 
     public override fun onCreateView(inflater :LayoutInflater?, container: ViewGroup?,
             savedInstanceState :Bundle?) : View{
-        return inflater?.inflate(R.layout.activity_fb_auth_activity, container, false)!!
+        val view = inflater?.inflate(R.layout.activity_fb_auth_activity, container, false)
+        val authButton : LoginButton  = view?.findViewById(R.id.Button02) as LoginButton
+        authButton.setFragment(this)
+
+        return view!!
     }
 
-    private fun onSessionStateChange(session: Session, state: SessionState , exception: Exception) {
+    private fun onSessionStateChange(session: Session, state: SessionState , exception: Exception?) {
         if (state.isOpened()) {
             Log.i(TAG, "Logged in...");
         } else if (state.isClosed()) {
@@ -34,7 +39,7 @@ open class FBAuthFragment : Fragment() {
 
     private val callback : Session.StatusCallback= object: Session.StatusCallback{
         public override fun call(session : Session?, state: SessionState?, exception: Exception?) {
-            onSessionStateChange(session!!, state!!, exception!!)
+            onSessionStateChange(session!!, state!!, exception)
         }
     }
 
@@ -46,6 +51,13 @@ open class FBAuthFragment : Fragment() {
 
     public override fun onResume() {
         super.onResume();
+
+        val session :Session? = Session.getActiveSession();
+        if (session != null &&
+        (session.isOpened() || session.isClosed()) ) {
+            onSessionStateChange(session, session.getState()!!, null);
+        }
+
         uiHelper?.onResume();
     }
 

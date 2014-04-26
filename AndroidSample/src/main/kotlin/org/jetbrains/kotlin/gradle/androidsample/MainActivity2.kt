@@ -6,7 +6,7 @@ import android.app.Activity
 import android.view.Menu
 import android.view.View
 import android.widget.Button
-import org.jetbrains.kotlin.gradle.androidsample.R
+import android.content.Context
 
 open class MainActivity2: Activity() {
 
@@ -20,6 +20,14 @@ open class MainActivity2: Activity() {
                 val intent: Intent = Intent()
                 setResult(Activity.RESULT_OK, intent)
                 finish()
+            }
+        })
+
+        var fb: Button = findViewById(R.id.button) as Button
+        fb.setOnClickListener(object: View.OnClickListener {
+            public override fun onClick(view: View): Unit {
+                val i = Intent(getApplicationContext() as Context, javaClass<FBAuthActivity>())
+                startActivity(i)
             }
         })
     }

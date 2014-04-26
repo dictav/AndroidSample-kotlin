@@ -21,4 +21,10 @@
             android:layout_height="55dp">
     </Button>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="facebook"
+        android:id="@+id/button" />
+
 </LinearLayout>
