@@ -16,9 +16,9 @@
 
     <Button android:text="Next"
             android:id="@+id/Button01"
-            android:layout_width="250px"
-            android:textSize="18px"
-            android:layout_height="55px">
+            android:layout_width="250dp"
+            android:textSize="18sp"
+            android:layout_height="55dp">
     </Button>
 
 </LinearLayout>
