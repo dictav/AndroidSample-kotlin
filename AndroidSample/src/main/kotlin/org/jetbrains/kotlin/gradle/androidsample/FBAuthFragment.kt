@@ -8,17 +8,20 @@ import android.view.View
 import com.facebook.Session
 import com.facebook.SessionState
 import android.util.Log
+import com.facebook.UiLifecycleHelper
+import android.content.Intent
 
 /**
  * Created by sambaiz on 2014/04/27.
  */
 open class FBAuthFragment : Fragment() {
 
-    val TAG : String = "FBAuthFragment";
+    private val TAG : String = "FBAuthFragment";
+    private var uiHelper : UiLifecycleHelper? = null
 
     public override fun onCreateView(inflater :LayoutInflater?, container: ViewGroup?,
             savedInstanceState :Bundle?) : View{
-        return inflater?.inflate(R.layout.fragment_blank, container, false)!!
+        return inflater?.inflate(R.layout.activity_fb_auth_activity, container, false)!!
     }
 
     private fun onSessionStateChange(session: Session, state: SessionState , exception: Exception) {
@@ -31,7 +34,38 @@ open class FBAuthFragment : Fragment() {
 
     private val callback : Session.StatusCallback= object: Session.StatusCallback{
         public override fun call(session : Session?, state: SessionState?, exception: Exception?) {
-            onSessionStateChange(session!!, state!!, exception!!);
+            onSessionStateChange(session!!, state!!, exception!!)
         }
-    };
+    }
+
+    public fun onCreate(savedInstanceState: Bundle) {
+        super.onCreate(savedInstanceState);
+        uiHelper = UiLifecycleHelper(getActivity(), callback);
+        uiHelper?.onCreate(savedInstanceState);
+    }
+
+    public override fun onResume() {
+        super.onResume();
+        uiHelper?.onResume();
+    }
+
+    public override fun onActivityResult(requestCode: kotlin.Int, resultCode: kotlin.Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data);
+        uiHelper?.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public override fun onPause() {
+        super.onPause();
+        uiHelper?.onPause();
+    }
+
+    public override fun onDestroy() {
+        super.onDestroy();
+        uiHelper?.onDestroy();
+    }
+
+    public override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState);
+        uiHelper?.onSaveInstanceState(outState);
+    }
 }

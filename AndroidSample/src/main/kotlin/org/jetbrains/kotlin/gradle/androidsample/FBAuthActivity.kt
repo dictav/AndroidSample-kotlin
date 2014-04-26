@@ -19,21 +19,12 @@ open class FBAuthActivity: FragmentActivity() {
 
     protected override fun onCreate(savedInstanceState: Bundle?): Unit {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fb_auth_activity)
-
-        facebook = Facebook(FB_APP_ID)
-        val button: Button = findViewById(R.id.Button02) as Button
-        button setOnClickListener (object: View.OnClickListener {
-            public override fun onClick(view: View): Unit {
-
-                if (savedInstanceState == null) {
-                    fb_fragment = FBAuthFragment()
-                    getSupportFragmentManager()?.beginTransaction()
-                    ?.add(android.R.id.content, fb_fragment)?.commit();
-                } else {
-                    fb_fragment = getSupportFragmentManager()?.findFragmentById(android.R.id.content) as FBAuthFragment
-                }
-            }
-        })
+        if (savedInstanceState == null) {
+            fb_fragment = FBAuthFragment()
+            getSupportFragmentManager()?.beginTransaction()
+            ?.add(android.R.id.content, fb_fragment)?.commit();
+        } else {
+            fb_fragment = getSupportFragmentManager()?.findFragmentById(android.R.id.content) as FBAuthFragment
+        }
     }
 }
