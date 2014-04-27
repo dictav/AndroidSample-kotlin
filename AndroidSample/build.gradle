@@ -23,6 +23,7 @@ repositories {
 }
 
 dependencies {
+    compile 'fr.avianey:facebook-android-api:+@aar'
     compile files('libs/android-support-v4.jar')
     compile 'org.jetbrains.kotlin:kotlin-stdlib:0.1-SNAPSHOT'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -35,7 +36,7 @@ android {
     buildToolsVersion "19.0.3"
 
     defaultConfig {
-        minSdkVersion 7
+        minSdkVersion 8
         targetSdkVersion 16
     }
 
