@@ -16,7 +16,7 @@ AndroidStudio + Kotlinで Androidアプリを作る学習サンプルです。
 
 * Redisへアクセス
 * MessagePackのpack/unpack
-* AWS S3 アップロード
+* AWS S3 画像アップロード
 * DNS resolv
 * Push notification
 * Facebook認証
