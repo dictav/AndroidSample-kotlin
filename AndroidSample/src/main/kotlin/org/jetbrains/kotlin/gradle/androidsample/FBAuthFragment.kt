@@ -11,6 +11,9 @@ import android.util.Log
 import com.facebook.UiLifecycleHelper
 import android.content.Intent
 import com.facebook.widget.LoginButton
+import com.facebook.Request
+import com.facebook.model.GraphUser
+import com.facebook.Response
 
 /**
  * Created by sambaiz on 2014/04/27.
@@ -33,6 +36,16 @@ open class FBAuthFragment : Fragment() {
         if (state.isOpened()) {
             Log.i(TAG, "Logged in...");
             Log.i(TAG, session.getAccessToken())
+
+            Request.newMeRequest(session, object: Request.GraphUserCallback {
+                // callback after Graph API response with user object
+                override fun onCompleted(user : GraphUser?, response: Response?) {
+                    if (user != null) {
+                        Log.i(TAG, user.getName());
+                    }
+                }
+            })?.executeAsync();
+
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
         }
