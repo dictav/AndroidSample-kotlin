@@ -14,6 +14,7 @@ import com.facebook.widget.LoginButton
 import com.facebook.Request
 import com.facebook.model.GraphUser
 import com.facebook.Response
+import java.util.Arrays
 
 /**
  * Created by sambaiz on 2014/04/27.
@@ -28,6 +29,7 @@ open class FBAuthFragment : Fragment() {
         val view = inflater?.inflate(R.layout.activity_fb_auth_activity, container, false)
         val authButton : LoginButton  = view?.findViewById(R.id.Button02) as LoginButton
         authButton.setFragment(this)
+        authButton.setReadPermissions(Arrays.asList("email", "user_birthday");
 
         return view!!
     }
