@@ -10,18 +10,17 @@ import com.facebook.Request
 import com.facebook.model.GraphUser
 import com.facebook.Response
 import java.net.URL
-import java.io.InputStream
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.content.Context
 import android.support.v4.content.AsyncTaskLoader
 import android.support.v4.app.LoaderManager.LoaderCallbacks
 import android.support.v4.content.Loader
 import android.support.v4.app.FragmentActivity
-import java.net.HttpURLConnection
-import java.io.BufferedInputStream
-import android.content.SharedPreferences
 import android.widget.Toast
+import android.util.Log
+import java.io.BufferedInputStream
+import java.io.InputStream
+import android.graphics.drawable.Drawable
 
 open class MainActivity3: FragmentActivity(){
 
@@ -58,15 +57,15 @@ open class MainActivity3: FragmentActivity(){
                     if (user != null) {
 
                         val args : Bundle = Bundle();
-                        args.putString("url", "http://graph.facebook.com/" + user.getId() + "/picture?type=large");
-                        getSupportLoaderManager()?.initLoader(0, args, object: LoaderCallbacks<Bitmap> {
-                            override fun onLoaderReset(p0: Loader<Bitmap>?) {
+                        args.putString("url", "https://graph.facebook.com/" + user.getId() + "/picture?type=large");
+                        getSupportLoaderManager()?.initLoader(0, args, object: LoaderCallbacks<Drawable> {
+                            override fun onLoaderReset(p0: Loader<Drawable>?) {
                             }
 
-                            override fun onLoadFinished(p0: Loader<Bitmap>?, p1: Bitmap?) {
-                                (findViewById(R.id.userpicture) as ImageView).setImageBitmap(p1)
+                            override fun onLoadFinished(p0: Loader<Drawable>?, p1: Drawable?) {
+                                (findViewById(R.id.userpicture) as ImageView).setImageDrawable(p1)
                             }
-                            override fun onCreateLoader(p0: Int, p1: Bundle?): Loader<Bitmap>? {
+                            override fun onCreateLoader(p0: Int, p1: Bundle?): Loader<Drawable>? {
                                 if(p1 != null) {
                                     val url : String? = p1?.getString("url")
                                     return AsyncWorker(getApplicationContext(), url)
@@ -86,21 +85,15 @@ open class MainActivity3: FragmentActivity(){
         }
     }
 
-    private class AsyncWorker(context : Context?, url : String?) : AsyncTaskLoader<Bitmap>(context) {
+    private class AsyncWorker(context : Context?, url : String?) : AsyncTaskLoader<Drawable>(context) {
 
         var url : String? = url
 
-        override fun loadInBackground(): Bitmap?  {
-            val profilePicUrl: URL = URL(url)
-            val connection : HttpURLConnection = profilePicUrl.openConnection() as HttpURLConnection
-            connection.setDoInput(true)
-            connection.connect()
-            val input : InputStream? = connection.getInputStream()
-            val bafinput : BufferedInputStream = BufferedInputStream(input!!)
-            val bmp : Bitmap? = BitmapFactory.decodeStream(bafinput)
-            //input?.close()
-            //connection.disconnect()
-            return bmp
+        override fun loadInBackground(): Drawable?  {
+            val ins : InputStream = URL(url).getContent() as InputStream
+            val d : Drawable? = Drawable.createFromStream(ins, "picture")
+            ins.close()
+            return d
         }
     }
 
