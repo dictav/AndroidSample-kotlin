@@ -39,6 +39,10 @@
             android:name="org.jetbrains.kotlin.gradle.androidsample.FBAuthActivity"
             android:label="@string/title_activity_fb_auth_activity" >
         </activity>
+        <activity
+            android:name="org.jetbrains.kotlin.gradle.androidsample.PickphotoActivity"
+            android:label="@string/title_activity_fb_auth_activity" >
+        </activity>
     </application>
 
 </manifest>

@@ -38,6 +38,14 @@ open class MainActivity2: Activity() {
                 startActivity(i)
             }
         })
+
+        var pickphoto: Button = findViewById(R.id.button3) as Button
+        pickphoto.setOnClickListener(object: View.OnClickListener {
+            public override fun onClick(view: View): Unit {
+                val i = Intent(getApplicationContext() as Context, javaClass<PickphotoActivity>())
+                startActivity(i)
+            }
+        })
     }
 
     public override fun onCreateOptionsMenu(menu: Menu?): Boolean {
