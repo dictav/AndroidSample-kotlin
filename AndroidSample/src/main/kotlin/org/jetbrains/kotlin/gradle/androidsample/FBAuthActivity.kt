@@ -13,7 +13,6 @@ import android.support.v4.app.FragmentActivity
 
 open class FBAuthActivity: FragmentActivity() {
 
-    val FB_APP_ID = "283294208447253"
     var facebook : Facebook? = null
     var fb_fragment : FBAuthFragment? = null
 

@@ -23,6 +23,14 @@ open class MainActivity2: Activity() {
             }
         })
 
+        var userinfo: Button = findViewById(R.id.button2) as Button
+        userinfo.setOnClickListener(object: View.OnClickListener {
+            public override fun onClick(view: View): Unit {
+                val i = Intent(getApplicationContext() as Context, javaClass<MainActivity3>())
+                startActivity(i)
+            }
+        })
+
         var fb: Button = findViewById(R.id.button) as Button
         fb.setOnClickListener(object: View.OnClickListener {
             public override fun onClick(view: View): Unit {

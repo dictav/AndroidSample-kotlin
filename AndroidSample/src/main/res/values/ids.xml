@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="username" type="id">username</item>
+    <item name="usernickname" type="id">usernickname</item>
+    <item name="userbirthday" type="id">userbirthday</item>
+    <item name="usergender" type="id">usergender</item>
+    <item name="userpicture" type="id">userpicture</item>
+    <item name="useremail" type="id">useremail</item>
+</resources>
