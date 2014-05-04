@@ -25,11 +25,6 @@ class SampleTest() : ActivityInstrumentationTestCase2<MainActivity?>("org.jetbra
         myActivity = getActivity()
     }
 
-    public fun testHelloWorld() {
-        val textHello = myActivity?.findViewById(R.id.Button01) as Button
-        assertEquals(textHello.getText(), "Next")
-    }
-
     /* MessagePack の使い方 */
     public fun testMessagePack() {
         val src = MainActivity.Hoge()
@@ -49,19 +44,9 @@ class SampleTest() : ActivityInstrumentationTestCase2<MainActivity?>("org.jetbra
     /* Redis の使い方 */
     public fun testRedis() {
         val jedis = Jedis("10.0.2.2")
+        assertNotNull(jedis)
         jedis.set("hoge", "10")
         assertEquals(jedis.get("hoge"), "10")
     }
 
-    /* Billing に接続 */
-    public fun testBilling() {
-        val mService = IInAppBillingService.Stub.asInterface(service);
-        val response = mService.isBillingSupported(3, getPackageName(), "inapp");
-        if(response == BILLING_RESPONSE_RESULT_OK) {
-            // has billing!
-        }
-        else {
-            // no billing V3...
-        }
-    }
 }
