@@ -23,6 +23,10 @@ repositories {
 }
 
 dependencies {
+    // local
+    compile fileTree(dir: 'libs', include: '*.jar')
+
+    // maven
     compile 'fr.avianey:facebook-android-api:+@aar'
     compile files('libs/android-support-v4.jar')
     compile 'org.jetbrains.kotlin:kotlin-stdlib:0.1-SNAPSHOT'
