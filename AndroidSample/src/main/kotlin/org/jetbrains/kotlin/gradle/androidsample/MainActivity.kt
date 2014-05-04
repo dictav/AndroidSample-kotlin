@@ -21,6 +21,9 @@ import org.jetbrains.kotlin.gradle.androidsample.util.IabHelper
 import org.jetbrains.kotlin.gradle.androidsample.util.IabResult
 import org.jetbrains.kotlin.gradle.androidsample.util.Inventory
 import org.jetbrains.kotlin.gradle.androidsample.util.Purchase
+import android.provider.Settings.Secure
+import android.os.Build
+
 /**
  * Created by dictav on 4/21/14.
  */
@@ -73,9 +76,12 @@ ServiceConnection mServiceConn = new ServiceConnection() {
         }
     }
 
-    protected override fun onCreate(savedInstanceState: Bundle?): Unit {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    fun startBilling() {
+        val model = Build.MODEL.toLowerCase()
+        if (model.contains("sdk")) {
+           return
+        }
+
         mHelper = IabHelper(this, base64Lisence)
         if (mHelper == null) {
             return
@@ -103,7 +109,12 @@ ServiceConnection mServiceConn = new ServiceConnection() {
                 helper.queryInventoryAsync(mGotInventoryListener);
             }
         });
+    }
 
+    protected override fun onCreate(savedInstanceState: Bundle?): Unit {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        startBilling()
     }
 
     // Listener that's called when we finish querying the items and subscriptions we own
@@ -158,7 +169,7 @@ ServiceConnection mServiceConn = new ServiceConnection() {
 
     public override fun onDestroy() : Unit {
         super.onDestroy()
-        if (mServiceConn != null) {
+        if (mService != null) {
             unbindService(mServiceConn)
         }
     }
