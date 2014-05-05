@@ -15,6 +15,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.gms.common.ConnectionResult
 import android.content.SharedPreferences
 import android.content.pm.PackageInfo
+import android.app.NotificationManager
 
 /**
  * Created by dictav on 4/21/14.
@@ -70,7 +71,6 @@ open class MainActivity: Activity() {
             }
         })
     }
-
 
     ////////for GCM Method start
 
