@@ -47,6 +47,4 @@ class SampleTest() : ActivityInstrumentationTestCase2<MainActivity?>("org.jetbra
         jedis.set("hoge", "10")
         assertEquals(jedis.get("hoge"), "10")
     }
-
-    }
 }
