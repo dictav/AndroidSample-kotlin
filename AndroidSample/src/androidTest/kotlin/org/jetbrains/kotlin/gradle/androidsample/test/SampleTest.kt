@@ -11,6 +11,7 @@ import android.widget.Button
 
 import org.msgpack.MessagePack
 import redis.clients.jedis.Jedis
+import com.android.vending.billing.IInAppBillingService
 
 /**
  * Created by dictav on 4/22/14.
@@ -22,11 +23,6 @@ class SampleTest() : ActivityInstrumentationTestCase2<MainActivity?>("org.jetbra
     protected override fun setUp() {
         super<ActivityInstrumentationTestCase2>.setUp()
         myActivity = getActivity()
-    }
-
-    public fun testHelloWorld() {
-        val textHello = myActivity?.findViewById(R.id.Button01) as Button
-        assertEquals(textHello.getText(), "Next")
     }
 
     /* MessagePack の使い方 */
@@ -50,5 +46,7 @@ class SampleTest() : ActivityInstrumentationTestCase2<MainActivity?>("org.jetbra
         val jedis = Jedis("10.0.2.2")
         jedis.set("hoge", "10")
         assertEquals(jedis.get("hoge"), "10")
+    }
+
     }
 }
