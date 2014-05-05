@@ -6,10 +6,11 @@ import android.app.Activity
 import android.view.Menu
 import android.view.View
 import android.widget.Button
-import android.util.Log
-import org.jetbrains.kotlin.gradle.androidsample.R
-import org.msgpack.MessagePack;
 import org.msgpack.annotation.Message;
+import com.google.android.gms.gcm.GoogleCloudMessaging
+import android.content.Context
+import android.os.AsyncTask
+import android.util.Log
 
 /**
  * Created by dictav on 4/21/14.
@@ -21,9 +22,18 @@ open class MainActivity: Activity() {
         var age : Int = 0
     }
 
+    val GCM_SENDER_ID : String = "691669003379"
+    var gcm : GoogleCloudMessaging? = null
+    var context : Context? = null
+
     protected override fun onCreate(savedInstanceState: Bundle?): Unit {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        context = getApplicationContext()
+        gcm = GoogleCloudMessaging.getInstance(this);
+        registerInBackground();
+
         var next: Button = findViewById(R.id.Button01) as Button
         next setOnClickListener (object: View.OnClickListener {
             public override fun onClick(view: View): Unit {
@@ -38,6 +48,24 @@ open class MainActivity: Activity() {
 
             }
         })
+    }
+
+    fun registerInBackground() {
+        object : AsyncTask<Unit, Unit, String>() {
+            override protected fun doInBackground(vararg args: Unit?): String? {
+                var msg : String = ""
+                if (gcm == null) {
+                    gcm = GoogleCloudMessaging.getInstance(context);
+                }
+                val regid : String? = gcm?.register(GCM_SENDER_ID);
+                msg = "Device registered, registration ID=" + regid;
+                return msg;
+            }
+
+            override protected fun onPostExecute(result: String) {
+                Log.i("device-registered", result)
+            }
+        }.execute()
     }
 
     public override fun onCreateOptionsMenu(menu: Menu?): Boolean {
