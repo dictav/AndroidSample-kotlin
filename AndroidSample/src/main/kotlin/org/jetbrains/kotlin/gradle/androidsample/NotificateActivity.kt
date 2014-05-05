@@ -19,8 +19,10 @@ open class NotificateActivity: Activity() {
 
     override fun onResume(){
         super.onResume()
+        val ex : Intent? = getIntent()
         val mManager : NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         mManager.cancelAll()
+        GcmIntentService.notification_num = 0
         val intent : Intent = Intent(this, javaClass<MainActivity>())
         startActivity(intent)
     }

@@ -16,8 +16,8 @@ class GcmBroadcastReceiver : WakefulBroadcastReceiver() {
     }
     override fun onReceive(context : Context, intent : Intent) {
         val comp : ComponentName =
-            ComponentName(context?.getPackageName(), javaClass<GcmIntentService>().getName());
-        WakefulBroadcastReceiver.startWakefulService(context, (intent.setComponent(comp)));
-        setResultCode(Activity.RESULT_OK);
+            ComponentName(context?.getPackageName(), javaClass<GcmIntentService>().getName())
+        WakefulBroadcastReceiver.startWakefulService(context, (intent.setComponent(comp)))
+        setResultCode(Activity.RESULT_OK)
     }
 }
