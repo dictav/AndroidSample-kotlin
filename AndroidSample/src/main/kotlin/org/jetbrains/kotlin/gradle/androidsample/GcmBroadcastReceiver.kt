@@ -7,6 +7,12 @@ import android.support.v4.content.WakefulBroadcastReceiver
 import android.app.Activity
 
 class GcmBroadcastReceiver : WakefulBroadcastReceiver() {
+
+    class object{
+        fun completeWakefulIntent(intent : Intent?){
+            WakefulBroadcastReceiver.completeWakefulIntent(intent)
+        }
+    }
     override fun onReceive(context : Context, intent : Intent) {
         val comp : ComponentName =
             ComponentName(context?.getPackageName(), javaClass<GcmIntentService>().getName());
