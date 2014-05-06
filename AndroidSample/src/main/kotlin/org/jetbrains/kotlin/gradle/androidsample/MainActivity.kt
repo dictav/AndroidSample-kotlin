@@ -52,6 +52,7 @@ open class MainActivity: Activity() {
     var mService : IInAppBillingService? = null
     var mHelper : IabHelper? = null
 
+    private var purchase : Button? = null
 
     var mServiceConn : ServiceConnection = object : ServiceConnection {
         public override fun onServiceDisconnected(name: ComponentName?) : Unit {
@@ -150,8 +151,8 @@ open class MainActivity: Activity() {
             }
         })
 
-        val purchase = findViewById(R.id.purchase) as Button
-        purchase setOnClickListener(object: View.OnClickListener {
+        purchase = findViewById(R.id.purchase) as Button
+        purchase?.setOnClickListener(object: View.OnClickListener {
             override fun onClick(view: View) {
                 Log.d(TAG, "Buy gas button clicked.")
 
@@ -178,6 +179,7 @@ open class MainActivity: Activity() {
                         , "")
             }
         })
+        purchase?.setEnabled(false)
     }
 
     // Listener that's called when we finish querying the items and subscriptions we own
@@ -208,8 +210,10 @@ open class MainActivity: Activity() {
             var message = ""
             if (doyaMaximumPurchase != null && verifyDeveloperPayload(doyaMaximumPurchase)) {
                 message = "User HAS doya maximum"
+                purchase?.setEnabled(false)
             } else {
                 message = "User DOES NOT HAVE doya maximum"
+                purchase?.setEnabled(true)
             }
 
             val textView = findViewById(R.id.purchaseText) as TextView
