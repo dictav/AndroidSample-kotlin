@@ -18,7 +18,17 @@
             android:id="@+id/Button01"
             android:layout_width="250dp"
             android:textSize="18sp"
-            android:layout_height="55dp">
-    </Button>
+            android:layout_height="55dp" />
 
+    <Button android:text="Purchase"
+        android:id="@+id/purchase"
+        android:layout_width="250dp"
+        android:textSize="18sp"
+        android:layout_height="55dp" />
+
+    <TextView
+        android:id="@+id/purchaseText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Activity 1" />
 </LinearLayout>
