@@ -154,12 +154,7 @@ open class MainActivity: Activity() {
         purchase = findViewById(R.id.purchase) as Button
         purchase?.setOnClickListener(object: View.OnClickListener {
             override fun onClick(view: View) {
-                Log.d(TAG, "Buy gas button clicked.")
-
-                if (false) {
-                    Log.d(TAG, "No need! You have doya maximum. Isn't that awesome?")
-                    return
-                }
+                Log.d(TAG, "Buy doya purchase button clicked.")
 
                 // launch the gas purchase UI flow.
                 // We will be notified of completion via mPurchaseFinishedListener
