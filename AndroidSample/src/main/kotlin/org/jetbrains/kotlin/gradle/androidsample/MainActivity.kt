@@ -221,19 +221,17 @@ open class MainActivity: Activity() {
 
     val mPurchaseFinishedListener = object : IabHelper.OnIabPurchaseFinishedListener {
         override fun onIabPurchaseFinished(result:IabResult? , purchase:Purchase? ) {
-            result!!
-            purchase!!
             Log.d(TAG, "Purchase finished: " + result + ", purchase: " + purchase)
 
             // if we were disposed of in the meantime, quit.
             if (mHelper == null) return
 
-            if (result.isFailure()) {
+            if (result?.isFailure()!!) {
                 Log.d(TAG, "Error purchasing: " + result)
                 setWaitScreen(false)
                 return
             }
-            if (!verifyDeveloperPayload(purchase)) {
+            if (!verifyDeveloperPayload(purchase!!)) {
                 Log.d(TAG,"Error purchasing. Authenticity verification failed.")
                 setWaitScreen(false)
                 return
