@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/dictav/androidsample-kotlin.png?label=ready&title=Ready)](https://waffle.io/dictav/androidsample-kotlin)
 AndroidSample-kotlin
 ====================
 
