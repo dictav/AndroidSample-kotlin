@@ -15,6 +15,8 @@ import android.graphics.Matrix
 import android.graphics.Bitmap
 import android.content.ContentValues
 import android.provider.MediaStore
+import android.util.Log
+import android.widget.Toast
 
 open class PickphotoActivity: Activity() {
 
@@ -45,16 +47,31 @@ open class PickphotoActivity: Activity() {
 
     override fun onActivityResult(requestCode : Int, resultCode : Int, data : Intent?) {
         if(requestCode == REQUEST_GALLERY && resultCode == Activity.RESULT_OK) {
-            val ins : InputStream? = getContentResolver()?.openInputStream(data?.getData()!!);
-            val img : Bitmap? = BitmapFactory.decodeStream(ins);
+            val exifData = data?.getData()!!
+            val ins: InputStream? = getContentResolver()?.openInputStream(exifData);
+            val img: Bitmap? = BitmapFactory.decodeStream(ins);
 
-            // 選択した画像を表示
-            (findViewById(R.id.imageView) as ImageView).setImageBitmap(pictureTurn(img, data?.getData()));
+            if (img != null) {
+               // 選択した画像を表示
+                (findViewById(R.id.imageView) as ImageView).setImageBitmap(pictureTurn(img, exifData));
+            }else{
+                Toast.makeText(this, "error!", Toast.LENGTH_SHORT).show();
+            }
         }else if(requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
-            val ins : InputStream? = getContentResolver()?.openInputStream(mImageUri!!);
+            if (mImageUri == null) {
+                Log.d("", "URI is null")
+                return
+            }
+            val uri : Uri = mImageUri!!
+
+            val ins : InputStream? = getContentResolver()?.openInputStream(uri);
             val img : Bitmap? = BitmapFactory.decodeStream(ins);
             ins?.close();
-            (findViewById(R.id.imageView) as ImageView).setImageBitmap(pictureTurn(img, mImageUri));
+            if (img != null) {
+                (findViewById(R.id.imageView) as ImageView).setImageBitmap(pictureTurn(img, uri));
+            }else{
+                Toast.makeText(this, "error!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -78,11 +95,22 @@ open class PickphotoActivity: Activity() {
         startActivityForResult(intent, REQUEST_CAMERA)
     }
 
-    private fun pictureTurn(img : Bitmap?, uri : Uri?) : Bitmap {
+    private fun pictureTurn(img : Bitmap, uri : Uri) : Bitmap {
         val columns = array<String>(MediaStore.MediaColumns.DATA)
-        val c = getContentResolver()?.query(uri!!, columns, null, null, null)
-        c?.moveToFirst()
-        val exifInterface = ExifInterface(c?.getString(0)!!)
+        val c = getContentResolver()?.query(uri, columns, null, null, null)
+        if (c == null) {
+            Log.d("", "Could not get cursor");
+            return img;
+        }
+
+        c.moveToFirst()
+        val str = c.getString(0)
+        if (str == null) {
+            Log.d("", "Could not get exif");
+            return img;
+        }
+
+        val exifInterface = ExifInterface(c.getString(0)!!)
         val exifR : Int = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
         val orientation : Float =
                 when (exifR) {
