@@ -16,6 +16,7 @@ import android.graphics.Bitmap
 import android.content.ContentValues
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.Toast
 
 open class PickphotoActivity: Activity() {
 
@@ -50,12 +51,11 @@ open class PickphotoActivity: Activity() {
             val ins: InputStream? = getContentResolver()?.openInputStream(exifData);
             val img: Bitmap? = BitmapFactory.decodeStream(ins);
 
-            if (img == null || exifData == null) {
-                //alert 表示
-
-            } else {
+            if (img != null) {
                // 選択した画像を表示
                 (findViewById(R.id.imageView) as ImageView).setImageBitmap(pictureTurn(img, exifData));
+            }else{
+                Toast.makeText(this, "error!", Toast.LENGTH_SHORT).show();
             }
         }else if(requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
             if (mImageUri == null) {
@@ -67,8 +67,10 @@ open class PickphotoActivity: Activity() {
             val ins : InputStream? = getContentResolver()?.openInputStream(uri);
             val img : Bitmap? = BitmapFactory.decodeStream(ins);
             ins?.close();
-            if (img != null ) {
+            if (img != null) {
                 (findViewById(R.id.imageView) as ImageView).setImageBitmap(pictureTurn(img, uri));
+            }else{
+                Toast.makeText(this, "error!", Toast.LENGTH_SHORT).show();
             }
         }
     }
