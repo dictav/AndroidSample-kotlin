@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.jetbrains.kotlin.gradle.androidsample"
+    package="com.dictav.androidsample"
     android:versionCode="1"
     android:versionName="1.0" >
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,8 +11,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-    <permission android:name="org.jetbrains.kotlin.gradle.androidsample.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-    <uses-permission android:name="org.jetbrains.kotlin.gradle.androidsample.permission.C2D_MESSAGE" />
+    <permission android:name="com.dictav.androidsample.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+    <uses-permission android:name="com.dictav.androidsample.permission.C2D_MESSAGE" />
 
     <uses-sdk
         android:minSdkVersion="9"
@@ -29,7 +29,7 @@
         <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="@string/g_app_id"/>
 
         <activity
-            android:name="org.jetbrains.kotlin.gradle.androidsample.MainActivity"
+            android:name="com.dictav.androidsample.MainActivity"
             android:label="@string/title_activity_main_activity1" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,24 +37,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.jetbrains.kotlin.gradle.androidsample.MainActivity2"
+            android:name="com.dictav.androidsample.MainActivity2"
             android:label="@string/title_activity_main_activity2" >
         </activity>
         <activity
-            android:name="org.jetbrains.kotlin.gradle.androidsample.MainActivity3"
+            android:name="com.dictav.androidsample.MainActivity3"
             android:label="@string/title_activity_main_activity2" >
         </activity>
         <activity android:name="com.facebook.LoginActivity" />
         <activity
-            android:name="org.jetbrains.kotlin.gradle.androidsample.FBAuthActivity"
+            android:name="com.dictav.androidsample.FBAuthActivity"
             android:label="@string/title_activity_fb_auth_activity" >
         </activity>
         <activity
-            android:name="org.jetbrains.kotlin.gradle.androidsample.PickphotoActivity"
+            android:name="com.dictav.androidsample.PickphotoActivity"
             android:label="@string/title_activity_fb_auth_activity" >
         </activity>
         <activity
-            android:name="org.jetbrains.kotlin.gradle.androidsample.NotificateActivity"
+            android:name="com.dictav.androidsample.NotificateActivity"
             android:label="@string/title_activity_fb_auth_activity" >
         </activity>
 
@@ -64,7 +64,7 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="org.jetbrains.kotlin.gradle.androidsample" />
+                <category android:name="com.dictav.androidsample" />
             </intent-filter>
         </receiver>
         <service android:name=".GcmIntentService" />
