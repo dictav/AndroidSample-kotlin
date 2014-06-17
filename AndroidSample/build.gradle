@@ -1,11 +1,11 @@
 buildscript {
-    ext.kotlin_version = '0.7.271'
+    ext.kotlin_version = '0.7+'
     repositories {
         mavenCentral()
         maven { url 'http://oss.sonatype.org/content/repositories/snapshots' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
+        classpath 'com.android.tools.build:gradle:0.11.+'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -26,17 +26,17 @@ dependencies {
     compile 'org.msgpack:msgpack:0.6.11'
     compile 'redis.clients:jedis:2.4.2'
     compile 'com.google.android.gms:play-services:+'
-    compile 'com.android.support:support-v4:19.0.+'
+    compile 'com.android.support:support-v4:19.1.+'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.0.3'
+    buildToolsVersion '19.1.0'
 
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 16
+        minSdkVersion 16
+        targetSdkVersion 19
     }
 
     sourceSets {
